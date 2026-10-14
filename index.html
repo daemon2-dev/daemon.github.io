@@ -1,2 +1,214 @@
-<h1>Merhaba Dünya</h1>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Girişim Rotası</title>
+<meta name="description" content="Fikirden şirkete: yeni başlayan girişimciler için sade bir yol haritası.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f4ee;
+    --surface: #ffffff;
+    --ink: #1c1a17;
+    --muted: #6b655c;
+    --line: #e4ded3;
+    --accent: #e4572e;
+    --accent-soft: #fde6dd;
+    --dark: #1c1a17;
+    --dark-ink: #f7f4ee;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #151412;
+      --surface: #1f1d1a;
+      --ink: #f2eee7;
+      --muted: #a39d93;
+      --line: #34312c;
+      --accent: #ff6b40;
+      --accent-soft: #3a2219;
+      --dark: #0d0c0b;
+      --dark-ink: #f2eee7;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", system-ui, sans-serif;
+    line-height: 1.65;
+    font-size: 17px;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+  h1, h2, h3 { font-family: "Fraunces", Georgia, serif; line-height: 1.15; }
+  a { color: inherit; }
 
+  /* Nav */
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo { font-family: "Fraunces", serif; font-weight: 800; font-size: 20px; text-decoration: none; }
+  .logo span { color: var(--accent); }
+  nav ul { display: flex; gap: 24px; list-style: none; }
+  nav ul a { text-decoration: none; color: var(--muted); font-size: 15px; font-weight: 500; }
+  nav ul a:hover { color: var(--accent); }
+  @media (max-width: 640px) { nav ul { display: none; } }
+
+  /* Hero */
+  .hero { padding: 96px 0 80px; }
+  .tag {
+    display: inline-block; background: var(--accent-soft); color: var(--accent);
+    font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 99px; margin-bottom: 24px;
+  }
+  .hero h1 { font-size: clamp(40px, 7vw, 76px); font-weight: 800; max-width: 14ch; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p { font-size: 19px; color: var(--muted); max-width: 52ch; margin: 24px 0 36px; }
+  .btn {
+    display: inline-block; background: var(--accent); color: #fff; text-decoration: none;
+    font-weight: 600; padding: 14px 26px; border-radius: 10px; transition: transform .15s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); margin-left: 8px; }
+
+  section { padding: 80px 0; }
+  .section-head { margin-bottom: 44px; max-width: 60ch; }
+  .section-head h2 { font-size: clamp(30px, 4.5vw, 44px); margin-bottom: 12px; }
+  .section-head p { color: var(--muted); }
+
+  /* Steps */
+  .steps { display: grid; gap: 16px; counter-reset: step; }
+  .step {
+    display: grid; grid-template-columns: 64px 1fr; gap: 20px; align-items: start;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 26px;
+  }
+  .step::before {
+    counter-increment: step; content: "0" counter(step);
+    font-family: "Fraunces", serif; font-weight: 800; font-size: 34px; color: var(--accent); line-height: 1;
+  }
+  .step h3 { font-size: 22px; margin-bottom: 6px; }
+  .step p { color: var(--muted); }
+
+  /* Cards */
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 26px;
+  }
+  .card .ico { font-size: 28px; margin-bottom: 14px; }
+  .card h3 { font-size: 20px; margin-bottom: 8px; }
+  .card p { color: var(--muted); font-size: 16px; }
+  .note { margin-top: 20px; font-size: 14px; color: var(--muted); }
+
+  /* Mistakes - dark band */
+  .band { background: var(--dark); color: var(--dark-ink); }
+  .band .section-head p { color: #a39d93; }
+  .mistakes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px 40px; list-style: none; }
+  .mistakes li { padding: 18px 0; border-top: 1px solid #34312c; }
+  .mistakes strong { display: block; font-size: 18px; margin-bottom: 4px; }
+  .mistakes span { color: #a39d93; font-size: 16px; }
+
+  /* Quote */
+  .quote { text-align: center; }
+  .quote blockquote {
+    font-family: "Fraunces", serif; font-weight: 600; font-size: clamp(26px, 4vw, 38px);
+    max-width: 24ch; margin: 0 auto 16px;
+  }
+  .quote cite { color: var(--muted); font-style: normal; }
+
+  footer { border-top: 1px solid var(--line); padding: 32px 0; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#" class="logo">Girişim<span>Rotası</span></a>
+    <ul>
+      <li><a href="#yol-haritasi">Yol Haritası</a></li>
+      <li><a href="#destekler">Destekler</a></li>
+      <li><a href="#hatalar">Hatalar</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="tag">Yeni başlayanlar için</span>
+    <h1>Fikrini <em>gerçek bir işe</em> dönüştür.</h1>
+    <p>Girişimcilik büyük bir sermaye ya da mükemmel bir fikirle değil, küçük ve doğru adımlarla başlar. Bu sayfa, fikirden ilk müşteriye giden yolu sade bir şekilde anlatıyor.</p>
+    <a href="#yol-haritasi" class="btn">Yol haritasını gör</a>
+    <a href="#destekler" class="btn ghost">Destekler</a>
+  </div>
+</header>
+
+<section id="yol-haritasi">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>5 adımda yol haritası</h2>
+      <p>Her adımın amacı, bir sonrakine geçmeden önce varsayımlarını gerçek insanlarla test etmek.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div><h3>Bir problem bul, çözüm değil</h3><p>Kendi hayatında ya da çevrende tekrar tekrar karşılaşılan bir sorunu seç. İnsanların bu sorun için zaten para ya da zaman harcıyor olması iyi bir işarettir.</p></div></div>
+      <div class="step"><div><h3>Potansiyel müşterilerle konuş</h3><p>En az 10–20 kişiyle görüş. Fikrini satmaya çalışma; sorunu nasıl yaşadıklarını ve şu an nasıl çözdüklerini dinle.</p></div></div>
+      <div class="step"><div><h3>En küçük ürünü (MVP) yap</h3><p>Sorunu çözen en basit versiyonu birkaç hafta içinde ortaya çıkar. Bir form, bir web sayfası ya da elle yürütülen bir hizmet bile yeterli olabilir.</p></div></div>
+      <div class="step"><div><h3>İlk müşteriyi kazan</h3><p>Ücretsiz kullanıcı değil, ödeme yapan ilk müşteri asıl testtir. Fiyat koymaktan korkma; geri bildirim en net bu şekilde gelir.</p></div></div>
+      <div class="step"><div><h3>Ölç, öğren, büyü</h3><p>Hangi kanaldan müşteri geldiğini, kimin kaldığını ve kimin gittiğini takip et. Çalışanı büyüt, çalışmayanı bırak.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="destekler">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Destekler ve araçlar</h2>
+      <p>Türkiye'deki girişimcilerin başvurabileceği bazı programlar ve işe yarayan ücretsiz araçlar.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="ico">🏛️</div><h3>KOSGEB</h3><p>Yeni kurulan işletmelere yönelik girişimcilik destek programları ve eğitimler sunar.</p></div>
+      <div class="card"><div class="ico">🔬</div><h3>TÜBİTAK BiGG</h3><p>Teknoloji ve yenilik odaklı iş fikirleri için hibe desteği sağlayan bireysel girişim programı.</p></div>
+      <div class="card"><div class="ico">🤖</div><h3>Yapay zekâ kredileri</h3><p>Bazı yapay zekâ şirketleri, ürün geliştiren erken aşama girişimlere API kredisi veren programlar yürütüyor.</p></div>
+      <div class="card"><div class="ico">🌐</div><h3>Ücretsiz web sitesi</h3><p>GitHub Pages ile ilk tanıtım sayfanı hiçbir barındırma ücreti ödemeden yayına alabilirsin.</p></div>
+    </div>
+    <p class="note">Program şartları ve tutarları zaman zaman değişir; başvurmadan önce ilgili kurumun resmi sitesini kontrol et.</p>
+  </div>
+</section>
+
+<section id="hatalar" class="band">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Sık yapılan hatalar</h2>
+      <p>Çoğu girişim kötü fikir yüzünden değil, bu tuzaklar yüzünden yavaşlar.</p>
+    </div>
+    <ul class="mistakes">
+      <li><strong>Kimseye sormadan aylarca ürün geliştirmek</strong><span>Önce talebi doğrula, sonra kodu yaz.</span></li>
+      <li><strong>Herkese hitap etmeye çalışmak</strong><span>Küçük ama net bir müşteri grubuyla başla.</span></li>
+      <li><strong>Nakit akışını takip etmemek</strong><span>Ne kadar süre dayanabileceğini her ay bil.</span></li>
+      <li><strong>Mükemmeli beklemek</strong><span>Yayınlanmış bir taslak, bekleyen bir şaheserden değerlidir.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="quote">
+  <div class="wrap">
+    <blockquote>Başlamak için harika olmak zorunda değilsin; harika olmak için başlamak zorundasın.</blockquote>
+    <cite>— Girişimcilik dünyasında sık tekrarlanan bir söz</cite>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Girişim Rotası</span>
+    <span>GitHub Pages ile yayınlandı</span>
+  </div>
+</footer>
+
+</body>
+</html>
